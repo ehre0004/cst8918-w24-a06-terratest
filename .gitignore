@@ -29,3 +29,5 @@
 .vscode
 .idea
 .idea
+*.pub
+id_rsa

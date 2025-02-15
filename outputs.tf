@@ -7,6 +7,18 @@ output "vm_name" {
   value = azurerm_linux_virtual_machine.webserver.name
 }
 
+output "vm_offer" {
+  value = azurerm_linux_virtual_machine.webserver.source_image_reference[0].offer
+}
+
+output "vm_sku" {
+  value = azurerm_linux_virtual_machine.webserver.source_image_reference[0].sku
+}
+
+output "vm_version" {
+  value = azurerm_linux_virtual_machine.webserver.source_image_reference[0].version
+}
+
 output "nic_name" {
   value = azurerm_network_interface.webserver.name
 }
