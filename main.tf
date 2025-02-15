@@ -72,12 +72,21 @@ resource "azurerm_network_interface" "webserver" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.webserver.id
   }
+
+  depends_on = [
+    azurerm_network_security_group.webserver
+  ]
 }
 
 # Link the security group to the NIC
 resource "azurerm_network_interface_security_group_association" "webserver" {
   network_interface_id      = azurerm_network_interface.webserver.id
   network_security_group_id = azurerm_network_security_group.webserver.id
+
+  depends_on = [
+    azurerm_network_interface.webserver,
+    azurerm_network_security_group.webserver
+  ]
 }
 
 # Define the init script template
@@ -127,6 +136,6 @@ resource "azurerm_linux_virtual_machine" "webserver" {
   
   depends_on = [
     azurerm_virtual_network.vnet,
-    azurerm_network_interface.webserver
+    azurerm_network_interface_security_group_association.webserver
   ]
 }
